@@ -2,7 +2,7 @@
 
 ## Progress
 
-- Easy: 2
+- Easy: 3
 - Medium: 1
 - Hard: 0
 
