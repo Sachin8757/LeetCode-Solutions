@@ -525,3 +525,201 @@ Constraints:
                 return res;
             }
         };
+
+
+# 14. Longest Common Prefix
+
+Easy
+
+Write a function to find the longest common prefix string amongst an array of strings.
+
+If there is no common prefix, return an empty string "".
+Example 1:
+
+Input: strs = ["flower","flow","flight"]
+Output: "fl"
+Example 2:
+
+Input: strs = ["dog","racecar","car"]
+Output: ""
+Explanation: There is no common prefix among the input strings.
+
+    class Solution {
+    public:
+        string longestCommonPrefix(vector<string>& strs) {
+            if(strs.empty()){
+                return "";
+            }
+            sort(strs.begin(),strs.end());
+            string ans="";
+
+            string first=strs.front();
+            string second=strs.back();
+            int i=0;
+            while(first[i]==second[i] && i < first.length() && i < second.length()){
+                ans.push_back(first[i]);
+                i++;
+            }
+            return ans;
+        }
+    };
+
+
+# 232. Implement Queue using Stacks
+
+Easy
+
+Implement a first in first out (FIFO) queue using only two stacks. The implemented queue should support all the functions of a normal queue (push, peek, pop, and empty).
+
+Implement the MyQueue class:
+
+void push(int x) Pushes element x to the back of the queue.
+int pop() Removes the element from the front of the queue and returns it.
+int peek() Returns the element at the front of the queue.
+boolean empty() Returns true if the queue is empty, false otherwise.
+Notes:
+
+You must use only standard operations of a stack, which means only push to top, peek/pop from top, size, and is empty operations are valid.
+Depending on your language, the stack may not be supported natively. You may simulate a stack using a list or deque (double-ended queue) as long as you use only a stack's standard operations.
+ 
+Example 1:
+
+Input
+["MyQueue", "push", "push", "peek", "pop", "empty"]
+[[], [1], [2], [], [], []]
+Output
+[null, null, null, 1, 1, false]
+
+Explanation
+MyQueue myQueue = new MyQueue();
+myQueue.push(1); // queue is: [1]
+myQueue.push(2); // queue is: [1, 2] (leftmost is front of the queue)
+myQueue.peek(); // return 1
+myQueue.pop(); // return 1, queue is [2]
+myQueue.empty(); // return false
+
+
+    class MyQueue {
+
+    public:
+        stack<int>s;
+        MyQueue() {
+        
+        }
+        
+        void push(int x) {
+            s.push(x);
+        }
+        
+        int pop() {
+            return removeBottom(s);
+        }
+        
+        int peek() {
+            return getBottom(s);
+        }
+        
+        bool empty() {
+            return s.empty();
+        }
+
+        private:
+        int removeBottom(stack<int>& s) {
+            int x = s.top();
+            s.pop();
+
+            // Bottom element found
+            if (s.empty()) {
+                return x;
+            }
+
+            int ans = removeBottom(s);
+            s.push(x);
+
+            return ans;
+        }
+
+        int getBottom(stack<int>& s) {
+            int x = s.top();
+            s.pop();
+
+            // Bottom element found
+            if (s.empty()) {
+                s.push(x);      // Restore it
+                return x;
+            }
+
+            int ans = getBottom(s);
+            s.push(x);
+
+            return ans;
+        }
+    };
+
+# 225. Implement Stack using Queues
+
+Easy
+
+Implement a last-in-first-out (LIFO) stack using only two queues. The implemented stack should support all the functions of a normal stack (push, top, pop, and empty).
+
+Implement the MyStack class:
+
+void push(int x) Pushes element x to the top of the stack.
+int pop() Removes the element on the top of the stack and returns it.
+int top() Returns the element on the top of the stack.
+boolean empty() Returns true if the stack is empty, false otherwise.
+Notes:
+
+You must use only standard operations of a queue, which means that only push to back, peek/pop from front, size and is empty operations are valid.
+Depending on your language, the queue may not be supported natively. You may simulate a queue using a list or deque (double-ended queue) as long as you use only a queue's standard operations.
+ 
+
+Example 1:
+
+Input
+["MyStack", "push", "push", "top", "pop", "empty"]
+[[], [1], [2], [], [], []]
+Output
+[null, null, null, 2, 2, false]
+
+Explanation
+MyStack myStack = new MyStack();
+myStack.push(1);
+myStack.push(2);
+myStack.top(); // return 2
+myStack.pop(); // return 2
+myStack.empty(); // return False
+
+    class MyStack {
+        
+    public:
+        queue<int>q;
+        MyStack() {
+            
+        }
+        
+        void push(int x) {
+            q.push(x);
+            int n=q.size();
+
+            for(int i=0;i<n-1;i++){
+                q.push(q.front());
+                q.pop();
+            }
+        }
+        
+        int pop() {
+            int num=q.front();
+            q.pop();
+            return num;
+        }
+        
+        int top() {
+            return q.front();
+        }
+        
+        bool empty() {
+            return q.empty();
+        }
+    };
+
