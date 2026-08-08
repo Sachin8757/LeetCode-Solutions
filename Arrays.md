@@ -1,4 +1,5 @@
-# 125. Valid Palindrome
+# DAY 01 OF 100 DAY DSA
+## 125. Valid Palindrome
 
 - Easy
 
@@ -23,7 +24,7 @@ Output: true
 Explanation: s is an empty string "" after removing non-alphanumeric characters.
 Since an empty string reads the same forward and backward, it is a palindrome.
 
-## Step‑by‑Step Approach
+### Step‑by‑Step Approach
 first i check if string is empty so i return 'True' than i create 2 variable for trabling string.
 
 than after i start while loop and traversing string 's' .
@@ -59,7 +60,7 @@ if and special character ocur than i continue loop therwise compair if i get any
 
 
 
-# 167. Two Sum II - Input Array Is Sorted
+## 167. Two Sum II - Input Array Is Sorted
 - Medium
 
 Given a 1-indexed array of integers numbers that is already sorted in non-decreasing order, find two numbers such that they add up to a specific target number. Let these two numbers be numbers[index1] and numbers[index2] where 1 <= index1 < index2 <= numbers.length.
@@ -88,7 +89,7 @@ Input: numbers = [-1,0], target = -1
 Output: [1,2]
 Explanation: The sum of -1 and 0 is -1. Therefore index1 = 1, index2 = 2. We return [1, 2].
 
-## Step‑by‑Step Approach
+### Step‑by‑Step Approach
 fist i check array size == 0 than i return a empty vector otherwise start traversing.
 i create tow variable for travresing .
 
@@ -116,8 +117,8 @@ check if nums[i]and nums[] == target than return the index otherwise return empt
             }
         };
 
-
-# 217. Contains Duplicate
+# DAY 02 OF 100 DAY DSA
+## 217. Contains Duplicate
 
 - Easy
 
@@ -151,7 +152,7 @@ Input: nums = [1,1,1,3,3,4,3,2,4,2]
 
 Output: true 
 
-## Step‑by‑Step Approach
+### Step‑by‑Step Approach
 First i create a unrodered-set for storing element in this question when any element ocur more than 1 time than return "True" otherwise  return "False".
 
 in storing Time i count which element come more tan 1 time if any come than return "True" other wise "False".
@@ -175,7 +176,7 @@ in storing Time i count which element come more tan 1 time if any come than retu
         };
 
 
-# 242. Valid Anagram
+## 242. Valid Anagram
   - Easy
 
 
@@ -195,7 +196,7 @@ Input: s = "rat", t = "car"
 
 Output: false
 
-## Step‑by‑Step Approach
+### Step‑by‑Step Approach
 
 in this question first i sort in assending order than start loop from 0 to end of string and compair all character if any one not match than i return 'False' otherwise if loop end i return 'True'.
 
@@ -219,7 +220,7 @@ in this question first i sort in assending order than start loop from 0 to end o
             }
         };
 
-
+# DAY 03 OF 100 DAY DSA
 # 347. Top K Frequent Elements
 
 Given an integer array nums and an integer k, return the k most frequent elements. You may return the answer in any order.
@@ -282,7 +283,7 @@ Output: [1,2]
 
 
 
-# 73. Set Matrix Zeroes
+## 73. Set Matrix Zeroes
 Medium
 
 Hint
@@ -382,7 +383,7 @@ Output: [[0,0,0,0],[0,4,5,0],[0,3,1,0]]
 
 
 
-# 79. Word Search
+## 79. Word Search
 Solved
 Medium
 Given an m x n grid of characters board and a string word, return true if word exists in the grid.
@@ -450,7 +451,7 @@ Output: false
         };
 
 
-# 15. 3Sum
+## 15. 3Sum
 
 Medium
 
@@ -526,8 +527,8 @@ Constraints:
             }
         };
 
-
-# 14. Longest Common Prefix
+# DAY 04 OF 100 DAY DSA
+## 14. Longest Common Prefix
 
 Easy
 
@@ -565,7 +566,7 @@ Explanation: There is no common prefix among the input strings.
     };
 
 
-# 232. Implement Queue using Stacks
+## 232. Implement Queue using Stacks
 
 Easy
 
@@ -656,7 +657,7 @@ myQueue.empty(); // return false
         }
     };
 
-# 225. Implement Stack using Queues
+## 225. Implement Stack using Queues
 
 Easy
 
@@ -722,8 +723,8 @@ myStack.empty(); // return False
             return q.empty();
         }
     };
-
-# 496. Next Greater Element I
+# DAY 05 OF 100 DAY DSA
+## 496. Next Greater Element I
 
 Easy
 Companies
@@ -813,7 +814,7 @@ Explanation: The next greater element for each value of nums1 is as follows:
             }
         };
 
-# 387. First Unique Character in a String
+## 387. First Unique Character in a String
 
 Easy
 
@@ -862,3 +863,70 @@ Output: -1
 
         }
     };
+
+# DAY 06 of 100 Day DSA 
+## 20. Valid Parentheses
+Easy
+Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
+
+An input string is valid if:
+
+Open brackets must be closed by the same type of brackets.
+Open brackets must be closed in the correct order.
+Every close bracket has a corresponding open bracket of the same type.
+ 
+
+Example 1:
+
+Input: s = "()"
+
+Output: true
+
+Example 2:
+
+Input: s = "()[]{}"
+
+Output: true
+
+Example 3:
+
+Input: s = "(]"
+
+Output: false
+
+Example 4:
+
+Input: s = "([])"
+
+Output: true
+
+Example 5:
+
+Input: s = "([)]"
+
+Output: false
+
+        class Solution {
+        public:
+            bool isValid(string s) {
+                stack<char>st;
+                for(char ch:s){
+                    if(ch=='('||ch=='['||ch=='{'){
+                        st.push(ch);
+                    }else{
+                        if(st.empty())
+                            return false;
+                            
+                        char top=st.top();
+                        st.pop();
+                        if(ch ==')' && top != '(') return false;
+                        if(ch ==']' && top != '[') return false;
+                        if(ch =='}' && top != '{') return false;
+
+
+                    }
+                }
+                return st.empty();
+            }
+        };
+
