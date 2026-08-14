@@ -1,224 +1,492 @@
-# DAY 01 OF 100 DAY DSA
-## 125. Valid Palindrome
 
-- Easy
 
-A phrase is a palindrome if, after converting all uppercase letters into lowercase letters and removing all non-alphanumeric characters, it reads the same forward and backward. Alphanumeric characters include letters and numbers.
 
-Given a string s, return true if it is a palindrome, or false otherwise.
+
+
+# DAY 07 of 100 Day DSA 
+
+## 136. Single Number
+
+Easy
+
+Given a non-empty array of integers nums, every element appears twice except for one. Find that single one.
+
+You must implement a solution with a linear runtime complexity and use only constant extra space.
+
+ 
 
 Example 1:
 
-Input: s = "A man, a plan, a canal: Panama"
-Output: true
-Explanation: "amanaplanacanalpanama" is a palindrome.
+Input: nums = [2,2,1]
+
+Output: 1
+
 Example 2:
 
-Input: s = "race a car"
+Input: nums = [4,1,2,1,2]
+
+Output: 4
+
+Example 3:
+
+Input: nums = [1]
+
+Output: 1
+
+    class Solution {
+    public:
+        int singleNumber(vector<int>& nums) {
+            // unordered_map<int,int>mp;
+            // for(int i:nums){
+            //     mp[i]++;
+            // }
+
+            // for(auto i:mp){
+            //     if(i.second==1)
+            //         return i.first;
+            // }
+            // return -1;
+
+            int ans = 0;
+            for (int num : nums) {
+                ans ^= num;
+            }
+            return ans;
+        }
+    };
+
+## 169. Majority Element
+
+Easy
+
+Given an array nums of size n, return the majority element.
+
+The majority element is the element that appears more than ⌊n / 2⌋ times. You may assume that the majority element always exists in the array.
+
+ 
+
+Example 1:
+
+Input: nums = [3,2,3]
+Output: 3
+Example 2:
+
+Input: nums = [2,2,1,1,1,2,2]
+Output: 2
+
+    class Solution {
+    public:
+        int majorityElement(vector<int>& nums) {
+            sort(nums.begin(),nums.end());
+            int n=nums.size();
+            return nums[n/2];
+        }
+    };
+
+# DAY 06 of 100 Day DSA 
+## 20. Valid Parentheses
+Easy
+Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
+
+An input string is valid if:
+
+Open brackets must be closed by the same type of brackets.
+Open brackets must be closed in the correct order.
+Every close bracket has a corresponding open bracket of the same type.
+ 
+
+Example 1:
+
+Input: s = "()"
+
+Output: true
+
+Example 2:
+
+Input: s = "()[]{}"
+
+Output: true
+
+Example 3:
+
+Input: s = "(]"
+
 Output: false
-Explanation: "raceacar" is not a palindrome.
-Example 3:
 
-Input: s = " "
+Example 4:
+
+Input: s = "([])"
+
 Output: true
-Explanation: s is an empty string "" after removing non-alphanumeric characters.
-Since an empty string reads the same forward and backward, it is a palindrome.
 
-### Step‑by‑Step Approach
-first i check if string is empty so i return 'True' than i create 2 variable for trabling string.
+Example 5:
 
-than after i start while loop and traversing string 's' .
-if and special character ocur than i continue loop therwise compair if i get any character not match than i return "False" after completing loop i return "True".
+Input: s = "([)]"
 
+Output: false
 
         class Solution {
         public:
-            bool isPalindrome(string s) {
-                if(s.length()==0)
-                    return true;
-                int i=0,j=s.length()-1;
+            bool isValid(string s) {
+                stack<char>st;
+                for(char ch:s){
+                    if(ch=='('||ch=='['||ch=='{'){
+                        st.push(ch);
+                    }else{
+                        if(st.empty())
+                            return false;
+                            
+                        char top=st.top();
+                        st.pop();
+                        if(ch ==')' && top != '(') return false;
+                        if(ch ==']' && top != '[') return false;
+                        if(ch =='}' && top != '{') return false;
 
-                while(i<j){
-                    if(!isalnum(s[i])){
-                        i++;
-                        continue;
-                    }
-                    if(!isalnum(s[j])){
-                        j--;
-                        continue;
-                    }
-                    if(tolower(s[i])!=tolower(s[j]))
-                        return false;
 
-                    i++;
-                    j--;
+                    }
                 }
-
-                return true;
+                return st.empty();
             }
         };
 
+# DAY 05 OF 100 DAY DSA
+## 496. Next Greater Element I
 
+Easy
+Companies
+The next greater element of some element x in an array is the first greater element that is to the right of x in the same array.
 
-## 167. Two Sum II - Input Array Is Sorted
-- Medium
+You are given two distinct 0-indexed integer arrays nums1 and nums2, where nums1 is a subset of nums2.
 
-Given a 1-indexed array of integers numbers that is already sorted in non-decreasing order, find two numbers such that they add up to a specific target number. Let these two numbers be numbers[index1] and numbers[index2] where 1 <= index1 < index2 <= numbers.length.
+For each 0 <= i < nums1.length, find the index j such that nums1[i] == nums2[j] and determine the next greater element of nums2[j] in nums2. If there is no next greater element, then the answer for this query is -1.
 
-Return the indices of the two numbers index1 and index2, each incremented by one, as an integer array [index1, index2] of length 2.
-
-The tests are generated such that there is exactly one solution. You may not use the same element twice.
-
-Your solution must use only constant extra space.
+Return an array ans of length nums1.length such that ans[i] is the next greater element as described above.
 
  
 
 Example 1:
 
-Input: numbers = [2,7,11,15], target = 9
-Output: [1,2]
-Explanation: The sum of 2 and 7 is 9. Therefore, index1 = 1, index2 = 2. We return [1, 2].
+Input: nums1 = [4,1,2], nums2 = [1,3,4,2]
+Output: [-1,3,-1]
+Explanation: The next greater element for each value of nums1 is as follows:
+- 4 is underlined in nums2 = [1,3,4,2]. There is no next greater element, so the answer is -1.
+- 1 is underlined in nums2 = [1,3,4,2]. The next greater element is 3.
+- 2 is underlined in nums2 = [1,3,4,2]. There is no next greater element, so the answer is -1.
 Example 2:
 
-Input: numbers = [2,3,4], target = 6
-Output: [1,3]
-Explanation: The sum of 2 and 4 is 6. Therefore index1 = 1, index2 = 3. We return [1, 3].
-Example 3:
-
-Input: numbers = [-1,0], target = -1
-Output: [1,2]
-Explanation: The sum of -1 and 0 is -1. Therefore index1 = 1, index2 = 2. We return [1, 2].
-
-### Step‑by‑Step Approach
-fist i check array size == 0 than i return a empty vector otherwise start traversing.
-i create tow variable for travresing .
-
-check if nums[i]and nums[] == target than return the index otherwise return empty array.
-
-
+Input: nums1 = [2,4], nums2 = [1,2,3,4]
+Output: [3,-1]
+Explanation: The next greater element for each value of nums1 is as follows:
+- 2 is underlined in nums2 = [1,2,3,4]. The next greater element is 3.
+- 4 is underlined in nums2 = [1,2,3,4]. There is no next greater element, so the answer is -1.
 
         class Solution {
-        public:
-            vector<int> twoSum(vector<int>& nums, int target) {
-                if(nums.size()==0)
-                    return { };
-                
-                int i=0,j=nums.size()-1;
+        private:
 
-                while(i<j){
-                    if(nums[i]+nums[j]==target)
-                        return {i+1,j+1};
-                    else if(nums[i]+nums[j]<target)
-                        i++;
-                    else
-                        j--;
+            // Find target in nums2
+            int findPosition(vector<int>& nums2, int target, int index) {
+                if (index == nums2.size()) {
+                    return -1;
                 }
-                return { };
+
+                if (nums2[index] == target) {
+                    return index;
+                }
+
+                return findPosition(nums2, target, index + 1);
+            }
+
+            // Find next greater element after index
+            int findGreater(vector<int>& nums2, int target, int index) {
+                if (index == nums2.size()) {
+                    return -1;
+                }
+
+                if (nums2[index] > target) {
+                    return nums2[index];
+                }
+
+                return findGreater(nums2, target, index + 1);
+            }
+
+            void solve(vector<int>& nums1, vector<int>& nums2,
+                    vector<int>& ans, int index) {
+
+                if (index == nums1.size()) {
+                    return;
+                }
+
+                int target = nums1[index];
+
+                // Find target position in nums2
+                int pos = findPosition(nums2, target, 0);
+
+                // Find next greater element
+                int greater = findGreater(nums2, target, pos + 1);
+
+                ans.push_back(greater);
+
+                solve(nums1, nums2, ans, index + 1);
+            }
+
+        public:
+            vector<int> nextGreaterElement(vector<int>& nums1, vector<int>& nums2) {
+
+                vector<int> ans;
+
+                solve(nums1, nums2, ans, 0);
+
+                return ans;
             }
         };
 
-# DAY 02 OF 100 DAY DSA
-## 217. Contains Duplicate
+## 387. First Unique Character in a String
 
-- Easy
+Easy
 
-Given an integer array nums, return true if any value appears at least twice in the array, and return false if every element is distinct.
+Given a string s, find the first non-repeating character in it and return its index. If it does not exist, return -1.
 
  
 
 Example 1:
 
-Input: nums = [1,2,3,1]
+Input: s = "leetcode"
 
-Output: true
+Output: 0
 
 Explanation:
 
-The element 1 occurs at the indices 0 and 3.
+The character 'l' at index 0 is the first character that does not occur at any other index.
 
 Example 2:
 
-Input: nums = [1,2,3,4]
+Input: s = "loveleetcode"
 
-Output: false
-
-Explanation:
-
-All elements are distinct.
+Output: 2
 
 Example 3:
 
-Input: nums = [1,1,1,3,3,4,3,2,4,2]
+Input: s = "aabb"
 
-Output: true 
+Output: -1
 
-### Step‑by‑Step Approach
-First i create a unrodered-set for storing element in this question when any element ocur more than 1 time than return "True" otherwise  return "False".
+    class Solution {
+    public:
+        int firstUniqChar(string s) {
 
-in storing Time i count which element come more tan 1 time if any come than return "True" other wise "False".
+            unordered_map< char ,int> mp;
 
-
-
-
-        class Solution {
-        public:
-            bool containsDuplicate(vector<int>& nums) {
-                unordered_set<int>seen;
-                for(int num:nums){
-                    if(seen.count(num)){
-                        return true;
-                    }
-                    seen.insert(num);
-                }
-
-                return false;
+            for(char ch: s){
+                mp[ch]++;
             }
-        };
+
+            for(int i=0; i<s.length(); i++){
+                if(mp[s[i]]==1)
+                    return i;
+            }
+
+            return -1;
+
+        }
+    };
 
 
-## 242. Valid Anagram
-  - Easy
+# DAY 04 OF 100 DAY DSA
+ ## 14. Longest Common Prefix
+
+Easy
+
+Write a function to find the longest common prefix string amongst an array of strings.
+
+If there is no common prefix, return an empty string "".
+Example 1:
+
+Input: strs = ["flower","flow","flight"]
+Output: "fl"
+Example 2:
+
+Input: strs = ["dog","racecar","car"]
+Output: ""
+Explanation: There is no common prefix among the input strings.
+
+    class Solution {
+    public:
+        string longestCommonPrefix(vector<string>& strs) {
+            if(strs.empty()){
+                return "";
+            }
+            sort(strs.begin(),strs.end());
+            string ans="";
+
+            string first=strs.front();
+            string second=strs.back();
+            int i=0;
+            while(first[i]==second[i] && i < first.length() && i < second.length()){
+                ans.push_back(first[i]);
+                i++;
+            }
+            return ans;
+        }
+    };
 
 
-Given two strings s and t, return true if t is an anagram of s, and false otherwise.
+## 232. Implement Queue using Stacks
 
+Easy
+
+Implement a first in first out (FIFO) queue using only two stacks. The implemented queue should support all the functions of a normal queue (push, peek, pop, and empty).
+
+Implement the MyQueue class:
+
+void push(int x) Pushes element x to the back of the queue.
+int pop() Removes the element from the front of the queue and returns it.
+int peek() Returns the element at the front of the queue.
+boolean empty() Returns true if the queue is empty, false otherwise.
+Notes:
+
+You must use only standard operations of a stack, which means only push to top, peek/pop from top, size, and is empty operations are valid.
+Depending on your language, the stack may not be supported natively. You may simulate a stack using a list or deque (double-ended queue) as long as you use only a stack's standard operations.
+ 
+Example 1:
+
+Input
+["MyQueue", "push", "push", "peek", "pop", "empty"]
+[[], [1], [2], [], [], []]
+Output
+[null, null, null, 1, 1, false]
+
+Explanation
+MyQueue myQueue = new MyQueue();
+myQueue.push(1); // queue is: [1]
+myQueue.push(2); // queue is: [1, 2] (leftmost is front of the queue)
+myQueue.peek(); // return 1
+myQueue.pop(); // return 1, queue is [2]
+myQueue.empty(); // return false
+
+
+    class MyQueue {
+
+    public:
+        stack<int>s;
+        MyQueue() {
+        
+        }
+        
+        void push(int x) {
+            s.push(x);
+        }
+        
+        int pop() {
+            return removeBottom(s);
+        }
+        
+        int peek() {
+            return getBottom(s);
+        }
+        
+        bool empty() {
+            return s.empty();
+        }
+
+        private:
+        int removeBottom(stack<int>& s) {
+            int x = s.top();
+            s.pop();
+
+            // Bottom element found
+            if (s.empty()) {
+                return x;
+            }
+
+            int ans = removeBottom(s);
+            s.push(x);
+
+            return ans;
+        }
+
+        int getBottom(stack<int>& s) {
+            int x = s.top();
+            s.pop();
+
+            // Bottom element found
+            if (s.empty()) {
+                s.push(x);      // Restore it
+                return x;
+            }
+
+            int ans = getBottom(s);
+            s.push(x);
+
+            return ans;
+        }
+    };
+
+## 225. Implement Stack using Queues
+
+Easy
+
+Implement a last-in-first-out (LIFO) stack using only two queues. The implemented stack should support all the functions of a normal stack (push, top, pop, and empty).
+
+Implement the MyStack class:
+
+void push(int x) Pushes element x to the top of the stack.
+int pop() Removes the element on the top of the stack and returns it.
+int top() Returns the element on the top of the stack.
+boolean empty() Returns true if the stack is empty, false otherwise.
+Notes:
+
+You must use only standard operations of a queue, which means that only push to back, peek/pop from front, size and is empty operations are valid.
+Depending on your language, the queue may not be supported natively. You may simulate a queue using a list or deque (double-ended queue) as long as you use only a queue's standard operations.
  
 
 Example 1:
 
-Input: s = "anagram", t = "nagaram"
+Input
+["MyStack", "push", "push", "top", "pop", "empty"]
+[[], [1], [2], [], [], []]
+Output
+[null, null, null, 2, 2, false]
 
-Output: true
+Explanation
+MyStack myStack = new MyStack();
+myStack.push(1);
+myStack.push(2);
+myStack.top(); // return 2
+myStack.pop(); // return 2
+myStack.empty(); // return False
 
-Example 2:
+    class MyStack {
+        
+    public:
+        queue<int>q;
+        MyStack() {
+            
+        }
+        
+        void push(int x) {
+            q.push(x);
+            int n=q.size();
 
-Input: s = "rat", t = "car"
-
-Output: false
-
-### Step‑by‑Step Approach
-
-in this question first i sort in assending order than start loop from 0 to end of string and compair all character if any one not match than i return 'False' otherwise if loop end i return 'True'.
-
-
-
-
-        class Solution {
-        public:
-            bool isAnagram(string s, string t) {
-                if(s.length() != t.length())
-                    return false;
-                sort(s.begin(),s.end());
-                sort(t.begin(),t.end());
-
-                for(int i=0;i<s.length();i++){
-                    if(s[i]!=t[i])
-                        return false;
-                }
-
-                return true;
+            for(int i=0;i<n-1;i++){
+                q.push(q.front());
+                q.pop();
             }
-        };
+        }
+        
+        int pop() {
+            int num=q.front();
+            q.pop();
+            return num;
+        }
+        
+        int top() {
+            return q.front();
+        }
+        
+        bool empty() {
+            return q.empty();
+        }
+    };
 
 # DAY 03 OF 100 DAY DSA
 # 347. Top K Frequent Elements
@@ -527,485 +795,232 @@ Constraints:
             }
         };
 
-# DAY 04 OF 100 DAY DSA
-## 14. Longest Common Prefix
 
-Easy
+# DAY 02 OF 100 DAY DSA
+## 217. Contains Duplicate
 
-Write a function to find the longest common prefix string amongst an array of strings.
+- Easy
 
-If there is no common prefix, return an empty string "".
-Example 1:
-
-Input: strs = ["flower","flow","flight"]
-Output: "fl"
-Example 2:
-
-Input: strs = ["dog","racecar","car"]
-Output: ""
-Explanation: There is no common prefix among the input strings.
-
-    class Solution {
-    public:
-        string longestCommonPrefix(vector<string>& strs) {
-            if(strs.empty()){
-                return "";
-            }
-            sort(strs.begin(),strs.end());
-            string ans="";
-
-            string first=strs.front();
-            string second=strs.back();
-            int i=0;
-            while(first[i]==second[i] && i < first.length() && i < second.length()){
-                ans.push_back(first[i]);
-                i++;
-            }
-            return ans;
-        }
-    };
-
-
-## 232. Implement Queue using Stacks
-
-Easy
-
-Implement a first in first out (FIFO) queue using only two stacks. The implemented queue should support all the functions of a normal queue (push, peek, pop, and empty).
-
-Implement the MyQueue class:
-
-void push(int x) Pushes element x to the back of the queue.
-int pop() Removes the element from the front of the queue and returns it.
-int peek() Returns the element at the front of the queue.
-boolean empty() Returns true if the queue is empty, false otherwise.
-Notes:
-
-You must use only standard operations of a stack, which means only push to top, peek/pop from top, size, and is empty operations are valid.
-Depending on your language, the stack may not be supported natively. You may simulate a stack using a list or deque (double-ended queue) as long as you use only a stack's standard operations.
- 
-Example 1:
-
-Input
-["MyQueue", "push", "push", "peek", "pop", "empty"]
-[[], [1], [2], [], [], []]
-Output
-[null, null, null, 1, 1, false]
-
-Explanation
-MyQueue myQueue = new MyQueue();
-myQueue.push(1); // queue is: [1]
-myQueue.push(2); // queue is: [1, 2] (leftmost is front of the queue)
-myQueue.peek(); // return 1
-myQueue.pop(); // return 1, queue is [2]
-myQueue.empty(); // return false
-
-
-    class MyQueue {
-
-    public:
-        stack<int>s;
-        MyQueue() {
-        
-        }
-        
-        void push(int x) {
-            s.push(x);
-        }
-        
-        int pop() {
-            return removeBottom(s);
-        }
-        
-        int peek() {
-            return getBottom(s);
-        }
-        
-        bool empty() {
-            return s.empty();
-        }
-
-        private:
-        int removeBottom(stack<int>& s) {
-            int x = s.top();
-            s.pop();
-
-            // Bottom element found
-            if (s.empty()) {
-                return x;
-            }
-
-            int ans = removeBottom(s);
-            s.push(x);
-
-            return ans;
-        }
-
-        int getBottom(stack<int>& s) {
-            int x = s.top();
-            s.pop();
-
-            // Bottom element found
-            if (s.empty()) {
-                s.push(x);      // Restore it
-                return x;
-            }
-
-            int ans = getBottom(s);
-            s.push(x);
-
-            return ans;
-        }
-    };
-
-## 225. Implement Stack using Queues
-
-Easy
-
-Implement a last-in-first-out (LIFO) stack using only two queues. The implemented stack should support all the functions of a normal stack (push, top, pop, and empty).
-
-Implement the MyStack class:
-
-void push(int x) Pushes element x to the top of the stack.
-int pop() Removes the element on the top of the stack and returns it.
-int top() Returns the element on the top of the stack.
-boolean empty() Returns true if the stack is empty, false otherwise.
-Notes:
-
-You must use only standard operations of a queue, which means that only push to back, peek/pop from front, size and is empty operations are valid.
-Depending on your language, the queue may not be supported natively. You may simulate a queue using a list or deque (double-ended queue) as long as you use only a queue's standard operations.
- 
-
-Example 1:
-
-Input
-["MyStack", "push", "push", "top", "pop", "empty"]
-[[], [1], [2], [], [], []]
-Output
-[null, null, null, 2, 2, false]
-
-Explanation
-MyStack myStack = new MyStack();
-myStack.push(1);
-myStack.push(2);
-myStack.top(); // return 2
-myStack.pop(); // return 2
-myStack.empty(); // return False
-
-    class MyStack {
-        
-    public:
-        queue<int>q;
-        MyStack() {
-            
-        }
-        
-        void push(int x) {
-            q.push(x);
-            int n=q.size();
-
-            for(int i=0;i<n-1;i++){
-                q.push(q.front());
-                q.pop();
-            }
-        }
-        
-        int pop() {
-            int num=q.front();
-            q.pop();
-            return num;
-        }
-        
-        int top() {
-            return q.front();
-        }
-        
-        bool empty() {
-            return q.empty();
-        }
-    };
-# DAY 05 OF 100 DAY DSA
-## 496. Next Greater Element I
-
-Easy
-Companies
-The next greater element of some element x in an array is the first greater element that is to the right of x in the same array.
-
-You are given two distinct 0-indexed integer arrays nums1 and nums2, where nums1 is a subset of nums2.
-
-For each 0 <= i < nums1.length, find the index j such that nums1[i] == nums2[j] and determine the next greater element of nums2[j] in nums2. If there is no next greater element, then the answer for this query is -1.
-
-Return an array ans of length nums1.length such that ans[i] is the next greater element as described above.
+Given an integer array nums, return true if any value appears at least twice in the array, and return false if every element is distinct.
 
  
 
 Example 1:
 
-Input: nums1 = [4,1,2], nums2 = [1,3,4,2]
-Output: [-1,3,-1]
-Explanation: The next greater element for each value of nums1 is as follows:
-- 4 is underlined in nums2 = [1,3,4,2]. There is no next greater element, so the answer is -1.
-- 1 is underlined in nums2 = [1,3,4,2]. The next greater element is 3.
-- 2 is underlined in nums2 = [1,3,4,2]. There is no next greater element, so the answer is -1.
-Example 2:
+Input: nums = [1,2,3,1]
 
-Input: nums1 = [2,4], nums2 = [1,2,3,4]
-Output: [3,-1]
-Explanation: The next greater element for each value of nums1 is as follows:
-- 2 is underlined in nums2 = [1,2,3,4]. The next greater element is 3.
-- 4 is underlined in nums2 = [1,2,3,4]. There is no next greater element, so the answer is -1.
-
-        class Solution {
-        private:
-
-            // Find target in nums2
-            int findPosition(vector<int>& nums2, int target, int index) {
-                if (index == nums2.size()) {
-                    return -1;
-                }
-
-                if (nums2[index] == target) {
-                    return index;
-                }
-
-                return findPosition(nums2, target, index + 1);
-            }
-
-            // Find next greater element after index
-            int findGreater(vector<int>& nums2, int target, int index) {
-                if (index == nums2.size()) {
-                    return -1;
-                }
-
-                if (nums2[index] > target) {
-                    return nums2[index];
-                }
-
-                return findGreater(nums2, target, index + 1);
-            }
-
-            void solve(vector<int>& nums1, vector<int>& nums2,
-                    vector<int>& ans, int index) {
-
-                if (index == nums1.size()) {
-                    return;
-                }
-
-                int target = nums1[index];
-
-                // Find target position in nums2
-                int pos = findPosition(nums2, target, 0);
-
-                // Find next greater element
-                int greater = findGreater(nums2, target, pos + 1);
-
-                ans.push_back(greater);
-
-                solve(nums1, nums2, ans, index + 1);
-            }
-
-        public:
-            vector<int> nextGreaterElement(vector<int>& nums1, vector<int>& nums2) {
-
-                vector<int> ans;
-
-                solve(nums1, nums2, ans, 0);
-
-                return ans;
-            }
-        };
-
-## 387. First Unique Character in a String
-
-Easy
-
-Given a string s, find the first non-repeating character in it and return its index. If it does not exist, return -1.
-
- 
-
-Example 1:
-
-Input: s = "leetcode"
-
-Output: 0
+Output: true
 
 Explanation:
 
-The character 'l' at index 0 is the first character that does not occur at any other index.
+The element 1 occurs at the indices 0 and 3.
 
 Example 2:
 
-Input: s = "loveleetcode"
-
-Output: 2
-
-Example 3:
-
-Input: s = "aabb"
-
-Output: -1
-
-    class Solution {
-    public:
-        int firstUniqChar(string s) {
-
-            unordered_map< char ,int> mp;
-
-            for(char ch: s){
-                mp[ch]++;
-            }
-
-            for(int i=0; i<s.length(); i++){
-                if(mp[s[i]]==1)
-                    return i;
-            }
-
-            return -1;
-
-        }
-    };
-
-# DAY 06 of 100 Day DSA 
-## 20. Valid Parentheses
-Easy
-Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
-
-An input string is valid if:
-
-Open brackets must be closed by the same type of brackets.
-Open brackets must be closed in the correct order.
-Every close bracket has a corresponding open bracket of the same type.
- 
-
-Example 1:
-
-Input: s = "()"
-
-Output: true
-
-Example 2:
-
-Input: s = "()[]{}"
-
-Output: true
-
-Example 3:
-
-Input: s = "(]"
+Input: nums = [1,2,3,4]
 
 Output: false
 
-Example 4:
+Explanation:
 
-Input: s = "([])"
+All elements are distinct.
 
-Output: true
+Example 3:
 
-Example 5:
+Input: nums = [1,1,1,3,3,4,3,2,4,2]
 
-Input: s = "([)]"
+Output: true 
 
-Output: false
+### Step‑by‑Step Approach
+First i create a unrodered-set for storing element in this question when any element ocur more than 1 time than return "True" otherwise  return "False".
+
+in storing Time i count which element come more tan 1 time if any come than return "True" other wise "False".
+
+
+
 
         class Solution {
         public:
-            bool isValid(string s) {
-                stack<char>st;
-                for(char ch:s){
-                    if(ch=='('||ch=='['||ch=='{'){
-                        st.push(ch);
-                    }else{
-                        if(st.empty())
-                            return false;
-                            
-                        char top=st.top();
-                        st.pop();
-                        if(ch ==')' && top != '(') return false;
-                        if(ch ==']' && top != '[') return false;
-                        if(ch =='}' && top != '{') return false;
-
-
+            bool containsDuplicate(vector<int>& nums) {
+                unordered_set<int>seen;
+                for(int num:nums){
+                    if(seen.count(num)){
+                        return true;
                     }
+                    seen.insert(num);
                 }
-                return st.empty();
+
+                return false;
             }
         };
 
-# DAY 07 of 100 Day DSA 
 
-## 136. Single Number
+## 242. Valid Anagram
+  - Easy
 
-Easy
 
-Given a non-empty array of integers nums, every element appears twice except for one. Find that single one.
-
-You must implement a solution with a linear runtime complexity and use only constant extra space.
+Given two strings s and t, return true if t is an anagram of s, and false otherwise.
 
  
 
 Example 1:
 
-Input: nums = [2,2,1]
+Input: s = "anagram", t = "nagaram"
 
-Output: 1
+Output: true
 
 Example 2:
 
-Input: nums = [4,1,2,1,2]
+Input: s = "rat", t = "car"
 
-Output: 4
+Output: false
 
+### Step‑by‑Step Approach
+
+in this question first i sort in assending order than start loop from 0 to end of string and compair all character if any one not match than i return 'False' otherwise if loop end i return 'True'.
+
+
+
+
+        class Solution {
+        public:
+            bool isAnagram(string s, string t) {
+                if(s.length() != t.length())
+                    return false;
+                sort(s.begin(),s.end());
+                sort(t.begin(),t.end());
+
+                for(int i=0;i<s.length();i++){
+                    if(s[i]!=t[i])
+                        return false;
+                }
+
+                return true;
+            }
+        };
+
+# DAY 01 OF 100 DAY DSA
+## 125. Valid Palindrome
+
+- Easy
+
+A phrase is a palindrome if, after converting all uppercase letters into lowercase letters and removing all non-alphanumeric characters, it reads the same forward and backward. Alphanumeric characters include letters and numbers.
+
+Given a string s, return true if it is a palindrome, or false otherwise.
+
+Example 1:
+
+Input: s = "A man, a plan, a canal: Panama"
+Output: true
+Explanation: "amanaplanacanalpanama" is a palindrome.
+Example 2:
+
+Input: s = "race a car"
+Output: false
+Explanation: "raceacar" is not a palindrome.
 Example 3:
 
-Input: nums = [1]
+Input: s = " "
+Output: true
+Explanation: s is an empty string "" after removing non-alphanumeric characters.
+Since an empty string reads the same forward and backward, it is a palindrome.
 
-Output: 1
+### Step‑by‑Step Approach
+first i check if string is empty so i return 'True' than i create 2 variable for trabling string.
 
-    class Solution {
-    public:
-        int singleNumber(vector<int>& nums) {
-            // unordered_map<int,int>mp;
-            // for(int i:nums){
-            //     mp[i]++;
-            // }
+than after i start while loop and traversing string 's' .
+if and special character ocur than i continue loop therwise compair if i get any character not match than i return "False" after completing loop i return "True".
 
-            // for(auto i:mp){
-            //     if(i.second==1)
-            //         return i.first;
-            // }
-            // return -1;
 
-            int ans = 0;
-            for (int num : nums) {
-                ans ^= num;
+        class Solution {
+        public:
+            bool isPalindrome(string s) {
+                if(s.length()==0)
+                    return true;
+                int i=0,j=s.length()-1;
+
+                while(i<j){
+                    if(!isalnum(s[i])){
+                        i++;
+                        continue;
+                    }
+                    if(!isalnum(s[j])){
+                        j--;
+                        continue;
+                    }
+                    if(tolower(s[i])!=tolower(s[j]))
+                        return false;
+
+                    i++;
+                    j--;
+                }
+
+                return true;
             }
-            return ans;
-        }
-    };
+        };
 
-## 169. Majority Element
 
-Easy
 
-Given an array nums of size n, return the majority element.
+## 167. Two Sum II - Input Array Is Sorted
+- Medium
 
-The majority element is the element that appears more than ⌊n / 2⌋ times. You may assume that the majority element always exists in the array.
+Given a 1-indexed array of integers numbers that is already sorted in non-decreasing order, find two numbers such that they add up to a specific target number. Let these two numbers be numbers[index1] and numbers[index2] where 1 <= index1 < index2 <= numbers.length.
+
+Return the indices of the two numbers index1 and index2, each incremented by one, as an integer array [index1, index2] of length 2.
+
+The tests are generated such that there is exactly one solution. You may not use the same element twice.
+
+Your solution must use only constant extra space.
 
  
 
 Example 1:
 
-Input: nums = [3,2,3]
-Output: 3
+Input: numbers = [2,7,11,15], target = 9
+Output: [1,2]
+Explanation: The sum of 2 and 7 is 9. Therefore, index1 = 1, index2 = 2. We return [1, 2].
 Example 2:
 
-Input: nums = [2,2,1,1,1,2,2]
-Output: 2
+Input: numbers = [2,3,4], target = 6
+Output: [1,3]
+Explanation: The sum of 2 and 4 is 6. Therefore index1 = 1, index2 = 3. We return [1, 3].
+Example 3:
 
-    class Solution {
-    public:
-        int majorityElement(vector<int>& nums) {
-            sort(nums.begin(),nums.end());
-            int n=nums.size();
-            return nums[n/2];
-        }
-    };
+Input: numbers = [-1,0], target = -1
+Output: [1,2]
+Explanation: The sum of -1 and 0 is -1. Therefore index1 = 1, index2 = 2. We return [1, 2].
+
+### Step‑by‑Step Approach
+fist i check array size == 0 than i return a empty vector otherwise start traversing.
+i create tow variable for travresing .
+
+check if nums[i]and nums[] == target than return the index otherwise return empty array.
+
+
+
+        class Solution {
+        public:
+            vector<int> twoSum(vector<int>& nums, int target) {
+                if(nums.size()==0)
+                    return { };
+                
+                int i=0,j=nums.size()-1;
+
+                while(i<j){
+                    if(nums[i]+nums[j]==target)
+                        return {i+1,j+1};
+                    else if(nums[i]+nums[j]<target)
+                        i++;
+                    else
+                        j--;
+                }
+                return { };
+            }
+        };
+
+
+
+
+
+
+
