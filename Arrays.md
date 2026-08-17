@@ -1,6 +1,6 @@
 
 
-# DAY 08 of 100 Dau DSA
+# DAY 09 of 100 Day DSA
 ## 2073. Time Needed to Buy Tickets
 Easy
 
@@ -176,6 +176,8 @@ Approch 2
         }
     };
 
+# DAY 08 of 100 Day DSA
+## Today is Practice day
 
 # DAY 07 of 100 Day DSA 
 
