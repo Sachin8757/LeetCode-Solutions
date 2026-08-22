@@ -1,5 +1,139 @@
-# DAY 11 of 100 Day DSA
+# DAY 12 of 100 Day DSA
+## 88. Merge Sorted Array
 
+Easy
+
+Hint
+You are given two integer arrays nums1 and nums2, sorted in non-decreasing order, and two integers m and n, representing the number of elements in nums1 and nums2 respectively.
+
+Merge nums1 and nums2 into a single array sorted in non-decreasing order.
+
+The final sorted array should not be returned by the function, but instead be stored inside the array nums1. To accommodate this, nums1 has a length of m + n, where the first m elements denote the elements that should be merged, and the last n elements are set to 0 and should be ignored. nums2 has a length of n.
+
+Example 1:
+
+Input: nums1 = [1,2,3,0,0,0], m = 3, nums2 = [2,5,6], n = 3
+Output: [1,2,2,3,5,6]
+Explanation: The arrays we are merging are [1,2,3] and [2,5,6].
+The result of the merge is [1,2,2,3,5,6] with the underlined elements coming from nums1.
+Example 2:
+
+Input: nums1 = [1], m = 1, nums2 = [], n = 0
+Output: [1]
+Explanation: The arrays we are merging are [1] and [].
+The result of the merge is [1].
+Example 3:
+
+Input: nums1 = [0], m = 0, nums2 = [1], n = 1
+Output: [1]
+Explanation: The arrays we are merging are [] and [1].
+The result of the merge is [1].
+Note that because m = 0, there are no elements in nums1. The 0 is only there to ensure the merge result can fit in nums1.
+
+    class Solution {
+    public:
+        void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
+            for (int j = 0, i = m; j<n; j++,i++){
+                nums1[i] = nums2[j];
+            }
+            sort(nums1.begin(),nums1.end());
+        }
+    };
+
+## 155. Min Stack
+
+Medium
+
+
+Hint
+
+Design a stack that supports push, pop, top, and retrieving the minimum element in constant time.
+
+Implement the MinStack class:
+
+MinStack() initializes the stack object.
+
+void push(int value) pushes the element value onto the stack.
+
+void pop() removes the element on the top of the stack.
+
+int top() gets the top element of the stack.
+
+int getMin() retrieves the minimum element in the stack.
+
+You must implement a solution with O(1) time complexity for each function.
+
+ 
+
+Example 1:
+
+Input
+["MinStack","push","push","push","getMin","pop","top","getMin"]
+[[],[-2],[0],[-3],[],[],[],[]]
+
+Output
+[null,null,null,null,-3,null,0,-2]
+
+Explanation
+
+MinStack minStack = new MinStack();
+
+minStack.push(-2);
+
+minStack.push(0);
+
+minStack.push(-3);
+
+minStack.getMin(); // return -3
+
+minStack.pop();
+
+minStack.top();    // return 0
+
+minStack.getMin(); // return -2
+
+
+        class MinStack {
+        public:
+            stack<int>s1;
+            stack<int>s2;
+            MinStack() {
+                
+            }
+            
+            void push(int value) {
+                s1.push(value);
+                if(s2.empty() || value <= s2.top())
+                    s2.push(value);
+            }
+            
+            void pop() {
+                if (s1.top() == s2.top()) {
+                    s2.pop();
+                }
+
+                s1.pop();
+            }
+            
+            int top() {
+                return s1.top();
+            }
+            
+            int getMin() {
+                return s2.top();
+            }
+        };
+
+        /**
+        * Your MinStack object will be instantiated and called as such:
+        * MinStack* obj = new MinStack();
+        * obj->push(value);
+        * obj->pop();
+        * int param_3 = obj->top();
+        * int param_4 = obj->getMin();
+        */
+
+# DAY 11 of 100 Day DSA
 ## 1856. Maximum Subarray Min-Product
 
 Medium
