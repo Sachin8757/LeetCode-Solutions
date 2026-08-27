@@ -1,3 +1,280 @@
+# DAY 15 of 100 Day DSA
+## 151. Reverse Words in a String
+
+Medium
+
+
+Given an input string s, reverse the order of the words.
+
+A word is defined as a sequence of non-space characters. The words in s will be separated by at least one space.
+
+Return a string of the words in reverse order concatenated by a single space.
+
+Note that s may contain leading or trailing spaces or multiple spaces between two words. The returned string should only have a single space separating the words. Do not include any extra spaces.
+
+ 
+
+Example 1:
+
+Input: s = "the sky is blue"
+Output: "blue is sky the"
+Example 2:
+
+Input: s = "  hello world  "
+Output: "world hello"
+Explanation: Your reversed string should not contain leading or trailing spaces.
+Example 3:
+
+Input: s = "a good   example"
+Output: "example good a"
+Explanation: You need to reduce multiple spaces between two words to a single space in the reversed string.
+ 
+    class Solution {
+    public:
+        string reverseWords(string s) {
+            int n=s.length();
+            string ans="";
+            reverse(s.begin(),s.end());
+            for (int i=0;i<n;i++){
+                string word="";
+                while(i<n && s[i]!= ' '){
+                    word+=s[i];
+                    i++;
+                }
+                reverse(word.begin(),word.end());
+                if(word.length()>0){
+                    ans+= " "+ word;
+                }
+            }
+            return ans.substr(1);
+        }
+    };
+
+## 1910. Remove All Occurrences of a Substring
+
+Medium
+
+Hint
+Given two strings s and part, perform the following operation on s until all occurrences of the substring part are removed:
+
+Find the leftmost occurrence of the substring part and remove it from s.
+Return s after removing all occurrences of part.
+
+A substring is a contiguous sequence of characters in a string.
+
+Example 1:
+
+Input: s = "daabcbaabcbc", part = "abc"
+Output: "dab"
+Explanation: The following operations are done:
+- s = "daabcbaabcbc", remove "abc" starting at index 2, so s = "dabaabcbc".
+- s = "dabaabcbc", remove "abc" starting at index 4, so s = "dababc".
+- s = "dababc", remove "abc" starting at index 3, so s = "dab".
+Now s has no occurrences of "abc".
+Example 2:
+
+Input: s = "axxxxyyyyb", part = "xy"
+Output: "ab"
+Explanation: The following operations are done:
+- s = "axxxxyyyyb", remove "xy" starting at index 4 so s = "axxxyyyb".
+- s = "axxxyyyb", remove "xy" starting at index 3 so s = "axxyyb".
+- s = "axxyyb", remove "xy" starting at index 2 so s = "axyb".
+- s = "axyb", remove "xy" starting at index 1 so s = "ab".
+Now s has no occurrences of "xy".
+
+
+        class Solution {
+        public:
+            string removeOccurrences(string s, string part) {
+                while(s.length()> 0 && s.find(part)< s.length()){
+                    s.erase(s.find(part),part.length());
+                }
+
+                return s;
+            }
+        };
+
+## 33. Search in Rotated Sorted Array
+
+Medium
+
+There is an integer array nums sorted in ascending order (with distinct values).
+
+Prior to being passed to your function, nums is possibly left rotated at an unknown index k (1 <= k < nums.length) such that the resulting array is [nums[k], nums[k+1], ..., nums[n-1], nums[0], nums[1], ..., nums[k-1]] (0-indexed). For example, [0,1,2,4,5,6,7] might be left rotated by 3 indices and become [4,5,6,7,0,1,2].
+
+Given the array nums after the possible rotation and an integer target, return the index of target if it is in nums, or -1 if it is not in nums.
+
+You must write an algorithm with O(log n) runtime complexity.
+
+Example 1:
+
+Input: nums = [4,5,6,7,0,1,2], target = 0
+Output: 4
+Example 2:
+
+Input: nums = [4,5,6,7,0,1,2], target = 3
+Output: -1
+Example 3:
+
+Input: nums = [1], target = 0
+Output: -1
+
+        class Solution {
+        private:
+            int solve(int st, int ed, int target, vector<int>& nums) {
+
+                if (st > ed)
+                    return -1;
+
+                int mid = st + (ed - st) / 2;
+
+                if (nums[mid] == target)
+                    return mid;
+
+                // Left half is sorted
+                if (nums[st] <= nums[mid]) {
+
+                    if (nums[st] <= target && target < nums[mid]) {
+                        return solve(st, mid - 1, target, nums);
+                    }
+                    else {
+                        return solve(mid + 1, ed, target, nums);
+                    }
+                }
+
+                // Right half is sorted
+                else {
+
+                    if (nums[mid] < target && target <= nums[ed]) {
+                        return solve(mid + 1, ed, target, nums);
+                    }
+                    else {
+                        return solve(st, mid - 1, target, nums);
+                    }
+                }
+            }
+
+        public:
+            int search(vector<int>& nums, int target) {
+                return solve(0, nums.size() - 1, target, nums);
+            }
+        };
+ 
+
+# DAY 14 of 100 Day DSA
+## 994. Rotting Oranges
+
+Medium
+
+Companies
+
+You are given an m x n grid where each cell can have one of three values:
+
+0 representing an empty cell,
+1 representing a fresh orange, or
+2 representing a rotten orange.
+Every minute, any fresh orange that is 4-directionally adjacent to a rotten orange becomes rotten.
+
+Return the minimum number of minutes that must elapse until no cell has a fresh orange. If this is impossible, return -1.
+
+ 
+
+Example 1:
+
+
+Input: grid = [[2,1,1],[1,1,0],[0,1,1]]
+Output: 4
+Example 2:
+
+Input: grid = [[2,1,1],[0,1,1],[1,0,1]]
+Output: -1
+Explanation: The orange in the bottom left corner (row 2, column 0) is never rotten, because rotting only happens 4-directionally.
+Example 3:
+
+Input: grid = [[0,2]]
+Output: 0
+Explanation: Since there are already no fresh oranges at minute 0, the answer is just 0.
+ 
+
+Constraints:
+
+m == grid.length
+n == grid[i].length
+1 <= m, n <= 10
+grid[i][j] is 0, 1, or 2.
+
+    class Solution {
+    public:
+        int orangesRotting(vector<vector<int>>& grid) {
+
+            int m = grid.size();
+            int n = grid[0].size();
+
+            queue<pair<int, int>> q;
+            int fresh = 0;
+
+            // Put all rotten oranges in queue
+            // and count fresh oranges
+            for (int i = 0; i < m; i++) {
+                for (int j = 0; j < n; j++) {
+
+                    if (grid[i][j] == 2) {
+                        q.push({i, j});
+                    }
+                    else if (grid[i][j] == 1) {
+                        fresh++;
+                    }
+                }
+            }
+
+            int time = 0;
+
+            int dr[] = {-1, 1, 0, 0};
+            int dc[] = {0, 0, -1, 1};
+
+            // BFS
+            while (!q.empty() && fresh > 0) {
+
+                int size = q.size();
+
+                // One complete level = one minute
+                for (int i = 0; i < size; i++) {
+
+                    auto [r, c] = q.front();
+                    q.pop();
+
+                    // Check 4 directions
+                    for (int d = 0; d < 4; d++) {
+
+                        int nr = r + dr[d];
+                        int nc = c + dc[d];
+
+                        // Check boundary and fresh orange
+                        if (nr >= 0 && nr < m &&
+                            nc >= 0 && nc < n &&
+                            grid[nr][nc] == 1) {
+
+                            grid[nr][nc] = 2;
+                            fresh--;
+
+                            q.push({nr, nc});
+                        }
+                    }
+                }
+
+                time++;
+            }
+
+            // Fresh oranges still remaining
+            if (fresh > 0)
+                return -1;
+
+            return time;
+        }
+    };
+
+
+
 # DAY 13 of 100 Day DSA
 ## 3718. Smallest Missing Multiple of K
 
