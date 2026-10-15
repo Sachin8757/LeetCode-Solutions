@@ -10,11 +10,19 @@ I am solving LeetCode problems consistently as part of my 100 Days DSA Challenge
 
 ## Progress
 
+<<<<<<< HEAD
 - Easy: 29
 - Medium: 23
 - Hard: 2
 
 **Total Solved: 54**
+=======
+- Easy: 27
+- Medium: 23
+- Hard: 2
+
+**Total Solved: 52**
+>>>>>>> b4fef02d27aefe343c3f566fe338aa1c9f93dfee
 
 ## Languages
 
