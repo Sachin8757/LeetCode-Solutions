@@ -10,7 +10,7 @@ I am solving LeetCode problems consistently as part of my 100 Days DSA Challenge
 
 ## Progress
 
-<<<<<<< HEAD
+<!-- <<<<<<< HEAD -->
 - Easy: 27
 - Medium: 23
 - Hard: 2
@@ -22,7 +22,7 @@ I am solving LeetCode problems consistently as part of my 100 Days DSA Challenge
 - Hard: 2
 
 **Total Solved: 50**
->>>>>>> 3816767bee6d1d09f32349230dfd848e2f163844
+<!-- >>>>>>> 3816767bee6d1d09f32349230dfd848e2f163844 -->
 
 ## Languages
 
@@ -40,4 +40,4 @@ Improve my problem-solving skills, understand different algorithms and data stru
 
 ## 🔗 LeetCode
 
-[My LeetCode Profile](https://leetcode.com/)
+[My LeetCode Profile](https://leetcode.com/u/sachin87s/)
